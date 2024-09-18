@@ -1,13 +1,22 @@
-import { useEffect, useState } from 'react';
+import { lazy, Suspense, useEffect, useState } from 'react';
 import data from '../data/post.json';
-import Card from './Card';
+// import Card from './Card';
 import ErrorBoundary from '../Concepts/ErrorBoundary';
+
+const Card = lazy(() => new Promise((resolve) => {
+    setTimeout (() => {
+      resolve(import('./Card'))
+    }, 500);
+}) );
 
 function Posts() {
 
     const [posts, setPost] = useState([]);
 
     // console.log(posts);
+    setTimeout(()=>{
+
+    },2000);
 
     useEffect(()=>{
         setPost(data.posts);
@@ -27,9 +36,12 @@ function Posts() {
                                     <div className='flex flex-wrap justify-center' >
                                         {
                                             posts.map((post:any,index:number)=>
-                                                <ErrorBoundary>
-                                                    <Card key={index} data={post} error={false}></Card>
-                                                </ErrorBoundary>
+                                                <Suspense>
+                                                    <ErrorBoundary>
+                                                        <Card key={index} data={post} error={false}></Card>
+                                                    </ErrorBoundary>
+                                                </Suspense>
+                                                
                                                 
                                             )
                                         }
