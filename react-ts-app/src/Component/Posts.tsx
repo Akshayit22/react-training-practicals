@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import data from '../data/post.json';
+import Card from './Card';
 
 
 function Posts() {
@@ -23,7 +24,7 @@ function Posts() {
                             {
                                 posts.length > 0 && (
 
-                                    <div className='container'>
+                                    <div className=''>
                                         {
                                             posts.map((post:any,index:number)=>
                                                 <Card key={index} data={post}></Card>

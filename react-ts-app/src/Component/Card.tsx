@@ -10,7 +10,7 @@ function Card({data}:any) {
             {
                 data &&
                 (
-                    <div className='card'>
+                    <div >
                         <span>{"userId: "+data.userId +  "   Id: " +  data.id}</span>
                         Tags: {
                             data.tags.map((tag: string,index: React.Key | null | undefined)=>
