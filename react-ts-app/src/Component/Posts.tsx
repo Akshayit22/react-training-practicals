@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import data from '../data/post.json';
 import Card from './Card';
-
+import ErrorBoundary from '../Concepts/ErrorBoundary';
 
 function Posts() {
 
@@ -24,10 +24,13 @@ function Posts() {
                             {
                                 posts.length > 0 && (
 
-                                    <div className='flex flex-wrap justify-center'>
+                                    <div className='flex flex-wrap justify-center' >
                                         {
                                             posts.map((post:any,index:number)=>
-                                                <Card key={index} data={post}></Card>
+                                                <ErrorBoundary>
+                                                    <Card key={index} data={post} error={false}></Card>
+                                                </ErrorBoundary>
+                                                
                                             )
                                         }
                                     </div>

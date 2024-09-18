@@ -2,11 +2,14 @@ import React from 'react'
 import { MdOutlineRemoveRedEye } from "react-icons/md";
 import { BiLike,BiDislike } from "react-icons/bi";
 
-function Card({data}:any) {
+function Card({data,error}:any) {
 
     // console.log(data);
     const targetAccount = 123;
 
+    if(error){
+        throw new Error("Some Error !!!");
+    }
     return (
         <>
             {
