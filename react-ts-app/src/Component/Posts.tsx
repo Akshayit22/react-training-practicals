@@ -19,12 +19,12 @@ function Posts() {
                     posts?
                     (
                         <div>
-                            <h2>Total Posts : {posts.length}</h2>
-                            <div >
+                            <h1>Total Posts : {posts.length}</h1>
+                            <div className='flex flex-row'>
                             {
                                 posts.length > 0 && (
 
-                                    <div className=''>
+                                    <div className='flex flex-wrap justify-center'>
                                         {
                                             posts.map((post:any,index:number)=>
                                                 <Card key={index} data={post}></Card>
