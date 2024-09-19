@@ -14,9 +14,6 @@ function Posts() {
     const [posts, setPost] = useState([]);
 
     // console.log(posts);
-    setTimeout(()=>{
-
-    },2000);
 
     useEffect(()=>{
         setPost(data.posts);
