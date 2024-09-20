@@ -33,7 +33,7 @@ function Posts() {
                                     <div className='flex flex-wrap justify-center' >
                                         {
                                             posts.map((post:any,index:number)=>
-                                                <Suspense>
+                                                <Suspense key={index}>
                                                     <ErrorBoundary>
                                                         <Card key={index} data={post} error={false}></Card>
                                                     </ErrorBoundary>

@@ -3,33 +3,10 @@ import './App.css'
 import { lazy, Suspense } from 'react'
 import Home from './Pages/Home';
 
-const Posts = lazy(() => new Promise((resolve) => {
-  setTimeout (() => {
-    resolve(import('./Component/Posts'))
-  }, 500);
-  }) );
-
-const CounterUseRef = lazy(() => new Promise((resolve) => {
-  setTimeout (() => {
-    resolve(import('./Concepts/CounterUseRef'))
-  }, 500);
-  }) );
-
-const Task = lazy(() => new Promise((resolve) => {
-  setTimeout (() => {
-    resolve(import('./Component/Task'))
-  }, 500);
-  }) );
-
-const ItemManager = lazy(() => new Promise((resolve) => {
-  setTimeout (() => {
-    resolve(import('./Dynamic_Item_Manager/ItemManager'))
-  }, 500);
-}) );
-
-
-
-
+const Posts = lazy(() => import('./Component/Posts') );
+const CounterUseRef = lazy(() => import('./Concepts/CounterUseRef'));
+const Task = lazy(() => import('./Component/Task') );
+const ItemManager = lazy(() => import('./Dynamic_Item_Manager/ItemManager'));
 function App() {
 
   return (

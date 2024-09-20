@@ -1,4 +1,6 @@
-import { useEffect, useReducer } from "react";
+import { createContext, useReducer } from 'react'
+
+export const AppContext = createContext<any>("AppContext");
 
 
 interface item{
@@ -27,6 +29,7 @@ function itemsReducer(items: item[], action: Action) {
         }
 
         case 'RemoveItem': {
+            console.log(action.id);
             return items.filter(item => item.id !== action.id);
         }
 
@@ -38,20 +41,23 @@ function itemsReducer(items: item[], action: Action) {
 
 const initialItems:item[] = [
     { id: 0, name: 'Mobile', desc: 'digital smart phone' },
-    { id: 0, name: 'Head phone', desc: 'smart airbuds' },
-    { id: 0, name: 'Laptop', desc: 'Apple mac book' }
+    { id: 1, name: 'Head phone', desc: 'smart airbuds' },
+    { id: 2, name: 'Laptop', desc: 'Apple mac book' }
 ];
 
 
-function useItemMngt() {
+function AppContextProvider({children}:any){
 
     const [items, dispatch] = useReducer<any>(itemsReducer, initialItems);
 
-    useEffect(()=>{
-        console.log(items);
-    },[items]);
+    const value = {items,dispatch};
 
-    return {items,dispatch};
+    console.log(items);
+
+    return <AppContext.Provider value={value}>
+        {children}
+    </AppContext.Provider>
 }
 
-export default useItemMngt;
+
+export default AppContextProvider;

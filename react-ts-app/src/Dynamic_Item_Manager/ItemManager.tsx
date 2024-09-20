@@ -15,19 +15,3 @@ export default function ItemManager() {
     </div>
   );
 }
-
-    // function handleAddItem(nextName: any,nextDesc: any) {
-    //   dispatch({
-    //     type: 'AddItem',
-    //     id: nextId++,
-    //     name: nextName,
-    //     desc: nextDesc,
-    //   });
-    // }
-
-    // function handleDeleteTask(taskId: any) {
-    //   dispatch({
-    //     type: 'deleted',
-    //     id: taskId
-    //   });
-    // }

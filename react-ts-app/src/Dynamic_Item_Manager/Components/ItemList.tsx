@@ -1,14 +1,15 @@
-import useItemMngt from '../hooks/useItemMngt';
+import { useContext, useEffect } from 'react';
+// import useItemMngt from '../hooks/useItemMngt';
 import ItemCard from './ItemCard';
+import { AppContext } from '../Context/AppContext';
 
 
 function ItemList() {
 
-  const {items} = useItemMngt();
-  console.log(items);
+  const {items}:any = useContext(AppContext);
 
   return (
-    <div className="">
+    <div className='flex flex-wrap justify-start'>
           {
             items.map((data:any,index:number)=>(
               <ItemCard key={index} data={data}/>)
