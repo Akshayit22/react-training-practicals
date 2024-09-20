@@ -2,8 +2,8 @@ import { useEffect, useState } from "react";
 
 function Task() {
 
-    const [data,setData] = useState([]);
-    const [search,setSearch] = useState([]);
+    const [data,setData] = useState<any>();
+    const [search,setSearch] = useState<any>();
 
     const fetchData = async() =>{
         console.log("fetchData");
@@ -16,7 +16,7 @@ function Task() {
             // console.log("All Data --> ", dataArray);
             setData(dataArray);
 
-            const a = dataArray.forEach((element: any) => {
+            dataArray.forEach((element: any) => {
                 if(element.id === "8"){
                     setSearch(element);
                     return;
@@ -59,7 +59,7 @@ function Task() {
                 <div>
                     <h3>Data From API</h3>
                     {
-                        data.length > 0 && (
+                        data?.length > 0 && (
 
                             <div>
                                 {

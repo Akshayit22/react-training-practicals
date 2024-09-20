@@ -3,11 +3,7 @@ import data from '../data/post.json';
 // import Card from './Card';
 import ErrorBoundary from '../Concepts/ErrorBoundary';
 
-const Card = lazy(() => new Promise((resolve) => {
-    setTimeout (() => {
-      resolve(import('./Card'))
-    }, 500);
-}) );
+const Card = lazy(() => import('./Card'));
 
 function Posts() {
 
