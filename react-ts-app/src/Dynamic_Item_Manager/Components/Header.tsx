@@ -1,21 +1,44 @@
-import { useContext, useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useMemo, useRef, useState } from "react";
 import { IoAddCircleSharp } from "react-icons/io5";
 import { FiSearch } from "react-icons/fi";
+import { RxCross1 } from "react-icons/rx";
 // import useItemMngt from "../hooks/useItemMngt";
 import {AppContext} from "../Context/AppContext";
 
 function Header() {
 
     // const {dispatch} = useItemMngt();
-    const {dispatch} = useContext(AppContext);
+    const {items,dispatch} = useContext(AppContext);
+
+    const prevValue = useMemo(()=>{
+        return items;
+    },[]);
 
     const [search,setSearch] = useState<string>("");
     const [addItem,setAddItem] = useState<boolean>(false);
+    const [searchToggle,setSearchToggle] = useState<boolean>(true);
     const inputRef = useRef<HTMLInputElement | null>(null);
 
     const HandleSubmit = (event:any) =>{
         event.preventDefault();
-        console.log(search);
+        if(search == null || search == ""){
+            return;
+        }
+        dispatch({
+            type:"SearchItems",
+            searchKey:search
+        })
+        setSearch("");
+        setSearchToggle(!searchToggle);
+        
+    }
+
+    const searchReset = () =>{
+        dispatch({
+            type:"setItems",
+            prevItems:prevValue,
+        })
+        setSearchToggle(!searchToggle);
     }
 
     const HandleAddItems = (event:any)=>{
@@ -30,7 +53,7 @@ function Header() {
 
     return (
         <div>
-            <div className="bg-slate-800 flex justify-between items-center px-3 flex-col md:flex-row">
+            <div className="bg-slate-800 flex justify-between items-center px-3 flex-col md:flex-row space-y-2">
             {/* Add Items Button  */}
                 <div className="flex bg-white text-black h-fit items-center rounded-md hover:cursor-pointer p-1" onClick={()=>setAddItem(!addItem)}>
                     <button className="mx-1 ">Add Items</button>
@@ -41,8 +64,15 @@ function Header() {
                 <div className="flex justify-center items-center ">
                     <form onSubmit={(event)=>HandleSubmit(event)} className="flex">
                         <input type="text" ref={inputRef} onChange={(e) => setSearch(e.target.value)} className="bg-white h-8 w-40vw  text-black rounded-md p-2" placeholder="Enter to search items..."></input>
-                        
-                        <button type="submit"><FiSearch className="text-3xl hover:cursor-pointer" type="submit"/></button>
+                        {
+                            searchToggle?
+                            (
+                                <button type="submit"><FiSearch className="text-3xl hover:cursor-pointer" type="submit"/></button>
+                            )
+                            :(
+                                <button onClick={searchReset}><RxCross1 className="text-3xl hover:cursor-pointer" type="submit"/></button>
+                            )
+                        }
                     </form>
                 </div>
 

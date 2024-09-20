@@ -10,10 +10,12 @@ interface item{
 }
   
 interface Action{
-    type:'AddItem'|'RemoveItem';
+    type:'AddItem'|'RemoveItem'|'SearchItems'|'setItems';
     id?:number,
     name?:string,
     desc?:string,
+    searchKey?:string,
+    prevItems?:item[],
 }
 
 function itemsReducer(items: item[], action: Action) {
@@ -29,8 +31,17 @@ function itemsReducer(items: item[], action: Action) {
         }
 
         case 'RemoveItem': {
-            console.log(action.id);
             return items.filter(item => item.id !== action.id);
+        }
+
+        case 'SearchItems':{
+            return items.filter((item)=>{
+                return Object.values(item.name+item.desc).join('').toLowerCase().includes(action.searchKey.toLowerCase());
+            })
+        }
+
+        case 'setItems':{
+            return action.prevItems;
         }
 
         default: {
@@ -50,6 +61,7 @@ function AppContextProvider({children}:any){
 
     const [items, dispatch] = useReducer<any>(itemsReducer, initialItems);
 
+    
     const value = {items,dispatch};
 
     console.log(items);
