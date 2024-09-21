@@ -1,4 +1,5 @@
 
+import ErrorBoundary from '../Concepts/ErrorBoundary';
 import Header from './Components/Header';
 import ItemList from './Components/ItemList';
 
@@ -9,9 +10,12 @@ export default function ItemManager() {
    <div className='m-2 space-y-2'>
         <h2 className='text-center text-2xl justify-center'>Dynamic Items Manager</h2>
       
-        <Header/>
+        <ErrorBoundary>
+            <Header/>
+            <ItemList/>
+        </ErrorBoundary>
 
-        <ItemList/>
+        
     </div>
   );
 }

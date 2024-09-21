@@ -1,4 +1,4 @@
-import { useContext, useEffect } from 'react';
+import { useContext } from 'react';
 // import useItemMngt from '../hooks/useItemMngt';
 import ItemCard from './ItemCard';
 import { AppContext } from '../Context/AppContext';
@@ -6,13 +6,13 @@ import { AppContext } from '../Context/AppContext';
 
 function ItemList() {
 
-  const {items}:any = useContext(AppContext);
+  const {items,sorted}:any = useContext(AppContext);
 
   return (
     <div className='flex flex-wrap justify-start'>
           {
-            items.map((data:any,index:number)=>(
-              <ItemCard key={index} data={data}/>)
+            items.map((data:any)=>(
+              <ItemCard key={data.id} data={data}/>)
             )
           }
     </div>

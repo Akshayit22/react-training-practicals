@@ -8,13 +8,14 @@ import {AppContext} from "../Context/AppContext";
 function Header() {
 
     // const {dispatch} = useItemMngt();
-    const {items,dispatch} = useContext(AppContext);
+    const {items,dispatch,setSorted} = useContext(AppContext);
 
     const prevValue = useMemo(()=>{
         return items;
     },[]);
 
     const [search,setSearch] = useState<string>("");
+    const [sort, setSort] = useState<string>("");
     const [addItem,setAddItem] = useState<boolean>(false);
     const [searchToggle,setSearchToggle] = useState<boolean>(true);
     const inputRef = useRef<HTMLInputElement | null>(null);
@@ -33,12 +34,11 @@ function Header() {
         
     }
 
-    const searchReset = () =>{
+    const searchReset = (prevValue:any) =>{
         dispatch({
             type:"setItems",
             prevItems:prevValue,
         })
-        setSearchToggle(!searchToggle);
     }
 
     const HandleAddItems = (event:any)=>{
@@ -47,9 +47,29 @@ function Header() {
         dispatch({type: 'AddItem',name:name,desc:desc});
     }
 
+    const HandleSort = (sortOption:string) => {
+
+        setSort(sortOption);
+        searchReset(prevValue);
+        setSorted(sortOption);
+        if (sortOption === "name") {
+            dispatch({
+                type:"sortItems",
+                sortBy:sortOption,
+            })
+        
+        } else if (sortOption === "desc") {
+            dispatch({
+                type:"sortItems",
+                sortBy:sortOption,
+            })
+        }
+    }
+
     useEffect(()=>{
+        // console.log(items);
         inputRef.current?.focus();
-    },[])
+    },[sort,items])
 
     return (
         <div>
@@ -63,14 +83,14 @@ function Header() {
                 {/* Search Bar code */}
                 <div className="flex justify-center items-center ">
                     <form onSubmit={(event)=>HandleSubmit(event)} className="flex">
-                        <input type="text" ref={inputRef} onChange={(e) => setSearch(e.target.value)} className="bg-white h-8 w-40vw  text-black rounded-md p-2" placeholder="Enter to search items..."></input>
+                        <input type="text" ref={inputRef} onChange={(e) => setSearch(e.target.value)} value={search} className="bg-white h-8 w-40vw  text-black rounded-md p-2" placeholder="Enter to search items..."></input>
                         {
                             searchToggle?
                             (
                                 <button type="submit"><FiSearch className="text-3xl hover:cursor-pointer" type="submit"/></button>
                             )
                             :(
-                                <button onClick={searchReset}><RxCross1 className="text-3xl hover:cursor-pointer" type="submit"/></button>
+                                <button onClick={()=>{searchReset(prevValue);setSearchToggle(!searchToggle);}}><RxCross1 className="text-3xl hover:cursor-pointer"/></button>
                             )
                         }
                     </form>
@@ -81,8 +101,8 @@ function Header() {
 
                     <p className="border-b-2 border-black">Filter</p>
                     <div >
-                        <button className="m-1 px-1 hover:cursor-pointer  hover:bg-slate-700 rounded-md">Name</button>|
-                        <button className="m-1 px-1 hover:cursor-pointer  hover:bg-slate-700 rounded-md">Desc</button>
+                        <button className={`m-1 px-1 hover:cursor-pointer  hover:bg-slate-700 rounded-md ${sort=='name'?'bg-slate-700':''}`} onClick={()=>HandleSort('name')}>Name</button>|
+                        <button className={`m-1 px-1 hover:cursor-pointer  hover:bg-slate-700 rounded-md ${sort=='desc'?'bg-slate-700':''}`} onClick={()=>HandleSort('desc')}>Desc</button>
                     </div>
 
                 </div>
