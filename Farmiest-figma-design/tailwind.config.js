@@ -5,7 +5,16 @@ export default {
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        'lgradient-one': '#EEDAB5',
+        'lgradient-two': '#E6F8EF',
+        'lgradient-three': '#E6F8EF',
+
+        'Elipgradient-one': '#008000',
+        'Elipgradient-two': '#FFD700',
+      },
+    },
   },
   plugins: [],
 }
