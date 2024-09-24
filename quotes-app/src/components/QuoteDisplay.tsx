@@ -1,11 +1,9 @@
-import React from "react";
-
-const QuoteDisplay = ({ quote }: any) => {
-  const { text, author } = quote;
+const QuoteDisplay = ({ data }: any) => {
+  const { quote, author } = data;
 
   return (
     <div>
-      <p>{text}</p>
+      <p>{quote}</p>
       <p>- {author}</p>
     </div>
   );

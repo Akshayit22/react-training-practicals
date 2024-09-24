@@ -1,25 +1,27 @@
-import { useState } from "react";
-import getRandomQuote from "../data/quotes";
 import QuoteDisplay from "./QuoteDisplay";
 
 import { RiFileCopyLine } from "react-icons/ri";
 import { FaQuoteLeft, FaQuoteRight } from "react-icons/fa";
+import { useGetRandomQuote } from "../api/react-query";
+import { useQueryClient } from "@tanstack/react-query";
 
 const QuoteGenerator = () => {
-  const [quote, setQuote] = useState(getRandomQuote());
-  console.log(quote);
+
+    const { isPending, error, data  } = useGetRandomQuote();
+    const queryClient = useQueryClient();
+    console.log(data);
+  
+    if (isPending) return "Loading...";
+
+    if (error) return "An error has occurred: " + error.message;
+
 
   const generateRandomQuote = () => {
-    const randomQuote = getRandomQuote();
-    setQuote(randomQuote);
+    queryClient.invalidateQueries({ queryKey: ["RandomQuote"] });
   };
 
-  const Button = ({ children, onClick }: any) => (
-    <button onClick={onClick}>{children}</button>
-  );
-
   const copyToClipboard = () => {
-    const quoteText = `${quote.text}`;
+    const quoteText = `${data.quote}`;
     navigator.clipboard.writeText(quoteText);
   };
 
@@ -30,7 +32,7 @@ const QuoteGenerator = () => {
 
         <div>
           <FaQuoteLeft />
-          <QuoteDisplay quote={quote} />
+          <QuoteDisplay data={data} />
           <FaQuoteRight />
         </div>
 
@@ -39,7 +41,7 @@ const QuoteGenerator = () => {
             <RiFileCopyLine /> Copy
           </button>
 
-          <Button onClick={generateRandomQuote}>Generate Quote</Button>
+          <button onClick={generateRandomQuote}>Generate Quote</button>
         </div>
       </div>
     </div>
