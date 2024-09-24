@@ -1,16 +1,13 @@
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import QuoteGenerator from "./components/QuoteGenerator";
+import { RouterProvider } from "react-router-dom";
+import { Router } from "./components/Router";
 
 function App() {
-  const queryClient = new QueryClient({
-    defaultOptions: { queries: { retry: 1 } },
-  });
 
   return (
     <>
-      <QueryClientProvider client={queryClient}>
-        <QuoteGenerator />
-      </QueryClientProvider>
+        <RouterProvider router={Router}>
+
+        </RouterProvider>
     </>
   );
 }
