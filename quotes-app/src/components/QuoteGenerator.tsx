@@ -1,10 +1,8 @@
 import QuoteDisplay from "./QuoteDisplay";
-
 import { RiFileCopyLine } from "react-icons/ri";
 import { FaQuoteLeft, FaQuoteRight } from "react-icons/fa";
 import { CiRepeat } from "react-icons/ci";
-import { useGetRandomQuote } from "../api/react-query";
-import { useQueryClient } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import { CiBookmark } from "react-icons/ci";
 import { IoIosBookmarks } from "react-icons/io";
 import { useNavigate } from "react-router-dom";
@@ -12,28 +10,19 @@ import { useDispatch } from "react-redux";
 import { bookmarkQuote } from "../redux/store";
 import { useState } from "react";
 import Button from "../common/Button";
+import WrapperComponent from "../hoc/WrapperComponent";
 
-const QuoteGenerator = () => {
+const _QuoteGenerator = ({ data }: any) => {
 
-    const navigate = useNavigate();
-
-    const { isPending, error, data } = useGetRandomQuote();
-    const queryClient = useQueryClient();
+    // const { isPending, error, data } = useGetRandomQuote();
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     const [saved, setSaved] = useState(0);
-    // console.log(data);
 
-    if (isPending)
-        return (
-            <div className="flex text-2xl h-screen justify-center items-center">
-                "Loading..."
-            </div>
-        );
-
-    if (error) return "An error has occurred: " + error.message;
+    const { refetch } = useQuery({ queryKey: ["RandomQuote"] })
 
     const generateRandomQuote = () => {
-        queryClient.invalidateQueries({ queryKey: ["RandomQuote"] });
+        refetch();
     };
 
     const copyToClipboard = () => {
@@ -77,5 +66,4 @@ const QuoteGenerator = () => {
         </div>
     );
 };
-
-export default QuoteGenerator;
+export const QuoteGenerator = WrapperComponent(_QuoteGenerator);
