@@ -2,6 +2,7 @@ import { FaArrowLeftLong } from "react-icons/fa6";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { BookmarkedQuote } from "./BookmarkedQuote";
+import Button from "../common/Button";
 
 interface Quote {
     author: string;
@@ -15,20 +16,15 @@ const Bookmark = () => {
     const bookmarks = useSelector((s:any) => s.bookmarks);
    
     return (
-        <div>
-            <div className="flex justify-start m-3 p-3">
-                <button
-                    onClick={() => navigate("/")}
-                    className="flex gap-1  bg-black text-white p-3 hover:bg-white hover:text-black transition-transform duration-1000 cursor-pointer rounded-full"
-                >
-                    <FaArrowLeftLong className="text-2xl" />
-                    Home
-                </button>
+        <div className="min-h-screen">
+            <div className="flex justify-start mx-3 mb-3 p-3">
                 
+                <Button onclick={() => navigate("/")} text={"Home"} styles={""} Component={FaArrowLeftLong} />
+
             </div>
 
             <div>
-                <p className="text-3xl font-semibold text-center">Saved Quotes</p>
+                <p className="text-3xl font-semibold text-center dark:text-white">Saved Quotes</p>
             </div>
 
             <div>

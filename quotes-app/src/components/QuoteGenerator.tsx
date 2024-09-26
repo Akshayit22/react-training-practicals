@@ -6,11 +6,12 @@ import { CiRepeat } from "react-icons/ci";
 import { useGetRandomQuote } from "../api/react-query";
 import { useQueryClient } from "@tanstack/react-query";
 import { CiBookmark } from "react-icons/ci";
-import { FaArrowRightLong } from "react-icons/fa6";
+import { IoIosBookmarks } from "react-icons/io";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { bookmarkQuote } from "../redux/store";
 import { useState } from "react";
+import Button from "../common/Button";
 
 const QuoteGenerator = () => {
 
@@ -19,7 +20,7 @@ const QuoteGenerator = () => {
     const { isPending, error, data } = useGetRandomQuote();
     const queryClient = useQueryClient();
     const dispatch = useDispatch();
-    const [saved,setSaved] = useState(0);
+    const [saved, setSaved] = useState(0);
     // console.log(data);
 
     if (isPending)
@@ -40,66 +41,40 @@ const QuoteGenerator = () => {
         navigator.clipboard.writeText(quoteText);
     };
 
-    const handleBookmark = (data:any) =>{
+    const handleBookmark = (data: any) => {
         setSaved(data.id);
         dispatch(bookmarkQuote(data));
     }
 
     return (
-      <div className="h-screen">
-        <div className="flex justify-end items-end m-3 p-3">
-          <button
-            onClick={() => navigate("/bookmark")}
-            className="flex gap-1  bg-black text-white p-3 hover:bg-white hover:text-black transition-transform duration-1000 cursor-pointer rounded-full"
-          >
-            Bookmarks
-            <FaArrowRightLong className="text-2xl" />
-          </button>
+        <div className="h-screen ">
+            <div className="flex justify-end items-end mx-3 mb-3 p-3">
+                <Button onclick={() => navigate("/bookmark")} text={"Bookmarks"} styles={""} Component={IoIosBookmarks} />
+            </div>
+
+            <div className="flex flex-col gap-4 justify-center dark:text-white">
+                <h1 className="text-3xl font-semibold text-center my-10">
+                    Random Quote Generator
+                </h1>
+
+                <div className="flex gap-4 justify-center dark:text-white">
+                    <FaQuoteLeft className="text-3xl mb-5" />
+                    <QuoteDisplay data={data} />
+                    <FaQuoteRight className="text-3xl mb-5" />
+                </div>
+
+                <div className="flex justify-evenly">
+
+                    <Button onclick={copyToClipboard} text={"Copy"} styles={""} Component={RiFileCopyLine} />
+                    {
+                        saved === data.id ?(<></>) :
+                            (<Button onclick={() => handleBookmark(data)} text={"Bookmark"} styles={""} Component={CiBookmark} />)
+                    }
+                    <Button onclick={generateRandomQuote} text={"Generate Quote"} styles={""} Component={CiRepeat} />
+
+                </div>
+            </div>
         </div>
-
-        <div className="flex flex-col gap-4 justify-center">
-          <h1 className="text-3xl font-semibold text-center my-10">
-            Random Quote Generator
-          </h1>
-
-          <div className="flex gap-4 justify-center">
-            <FaQuoteLeft className="text-3xl mb-5" />
-            <QuoteDisplay data={data} />
-            <FaQuoteRight className="text-3xl mb-5" />
-          </div>
-
-          <div className="flex justify-evenly">
-            <button
-              onClick={copyToClipboard}
-              className="flex gap-1 bg-black text-white p-3 hover:bg-white hover:text-black transition-transform duration-1000 cursor-pointer rounded-full"
-            >
-              <RiFileCopyLine className="text-xl mt-1" /> Copy
-            </button>
-
-            {
-                saved === data.id ? 
-                    (<></>):
-                    (
-                                <button
-                                    onClick={() => handleBookmark(data)}
-                                    className="flex gap-1  bg-black text-white p-3 hover:bg-white hover:text-black transition-transform duration-1000 cursor-pointer rounded-full"
-                                >
-                                    Bookmark
-                                    <CiBookmark className="text-2xl" />
-                                </button>
-                    )
-            }
-
-            <button
-              onClick={generateRandomQuote}
-              className="flex gap-1  bg-black text-white p-3 hover:bg-white hover:text-black transition-transform duration-1000 cursor-pointer rounded-full"
-            >
-              Generate Quote
-              <CiRepeat className="text-2xl" />
-            </button>
-          </div>
-        </div>
-      </div>
     );
 };
 
