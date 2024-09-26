@@ -67,7 +67,7 @@ const QuoteGenerator = () => {
 
                     <Button onclick={copyToClipboard} text={"Copy"} styles={""} Component={RiFileCopyLine} />
                     {
-                        saved === data.id ?(<></>) :
+                        saved === data.id ? (<></>) :
                             (<Button onclick={() => handleBookmark(data)} text={"Bookmark"} styles={""} Component={CiBookmark} />)
                     }
                     <Button onclick={generateRandomQuote} text={"Generate Quote"} styles={""} Component={CiRepeat} />

@@ -29,6 +29,7 @@ const Bookmark = () => {
 
             <div>
                 {
+                    bookmarks.length === 0 ? (<div className="p-5 text-2xl text-back dark:text-white">Nothing is saved...</div>):
                     bookmarks.map((data:Quote,index:number)=>(
                             <BookmarkedQuote key={index} data={data}></BookmarkedQuote>
                     ))
