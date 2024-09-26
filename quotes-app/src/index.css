@@ -1,3 +1,23 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+* {
+  @apply transition-colors duration-150;
+}
+
+/* :root {
+  --background: 0, 0, 0;
+} */
+
+.light {
+  --background: 0, 0, 0;
+}
+
+.dark {
+  --background: 255, 255, 255;
+}
+
+.red{
+  --background: 255, 180, 87;
+}

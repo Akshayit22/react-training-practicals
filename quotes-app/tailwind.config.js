@@ -4,9 +4,9 @@ export default {
   darkMode: "class",
   theme: {
     extend: {
-        colors:{
-
-        },
+      colors: {
+        bground: "rgba(var(--background))",
+      },
     },
   },
   plugins: [],
