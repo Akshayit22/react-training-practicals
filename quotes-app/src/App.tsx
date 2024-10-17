@@ -13,10 +13,10 @@ function App() {
     }
 
     return (
-        <div className={`relative top-0 bg-white dark:bg-black transition-transform duration-100`}>
+        <div className={`relative top-0 bg-white dark:bg-black transition-colors duration-500 ease-in-out delay-300`}>
             <RouterProvider router={Router}>
             </RouterProvider>
-            <button className="absolute z-10 bottom-10 right-10 w-12 h-12 text-4xl flex items-center justify-center rounded-full font-semibold bg-black dark:bg-white text-white dark:text-black" onClick={toggleTheme}>
+            <button className="absolute z-10 bottom-10 right-10 w-12 h-12 text-4xl flex items-center justify-center rounded-full font-semibold bg-black dark:bg-white text-white dark:text-black" onClick={toggleTheme} name="dark-mode">
                 {
                     darkMode ? <CiLight /> : <MdDarkMode />
                 }

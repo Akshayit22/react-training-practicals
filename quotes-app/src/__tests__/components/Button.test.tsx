@@ -1,21 +1,17 @@
 import { render, screen, fireEvent } from '@testing-library/react';
 import Button from '../../common/Button';
+import userEvent from '@testing-library/user-event'
 
 test('Button component', () => {
     expect(true).toBeTruthy();
 });
 
-// describe('Button component', () => {
-    
-//     // it('renders with the correct label', () => {
-//     //     render(<Button label="Click me" onClick={() => { }} />);
-//     //     expect(screen.getByText('Click me')).toBeInTheDocument();
-//     // });
+test('Button component', async () => {
+    // render(<Button onclick={()=>{console.log('sample')}} text={"Copy"} styles={""} Component={<>Copy</>} />);
 
-//     // it('calls onClick prop when clicked', () => {
-//     //     const handleClick = jest.fn();
-//     //     render(<Button label="Click me" onClick={handleClick} />);
-//     //     fireEvent.click(screen.getByText('Click me'));
-//     //     expect(handleClick).toHaveBeenCalledTimes(1);
-//     // });
-// });
+    // screen.debug();
+    // const button = screen.getByRole('button', { name: /Copy/i });
+    // await userEvent.click(button);
+    // screen.debug();
+
+});
